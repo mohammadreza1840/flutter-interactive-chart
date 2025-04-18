@@ -24,9 +24,11 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
+        useMaterial3: false,
         brightness: _darkMode ? Brightness.dark : Brightness.light,
       ),
       home: Scaffold(
+        backgroundColor: Color(0xFF0F0F0F),
         appBar: AppBar(
           title: const Text("Interactive Chart Demo"),
           actions: [
@@ -55,44 +57,43 @@ class _MyAppState extends State<MyApp> {
             /** Only [candles] is required */
             candles: _data,
             /** Uncomment the following for examples on optional parameters */
-
+          
             /** Example styling */
-            // style: ChartStyle(
-            //   priceGainColor: Colors.teal[200]!,
-            //   priceLossColor: Colors.blueGrey,
-            //   volumeColor: Colors.teal.withOpacity(0.8),
-            //   trendLineStyles: [
-            //     Paint()
-            //       ..strokeWidth = 2.0
-            //       ..strokeCap = StrokeCap.round
-            //       ..color = Colors.deepOrange,
-            //     Paint()
-            //       ..strokeWidth = 4.0
-            //       ..strokeCap = StrokeCap.round
-            //       ..color = Colors.orange,
-            //   ],
-            //   priceGridLineColor: Colors.blue[200]!,
-            //   priceLabelStyle: TextStyle(color: Colors.blue[200]),
-            //   timeLabelStyle: TextStyle(color: Colors.blue[200]),
-            //   selectionHighlightColor: Colors.red.withOpacity(0.2),
-            //   overlayBackgroundColor: Colors.red[900]!.withOpacity(0.6),
-            //   overlayTextStyle: TextStyle(color: Colors.red[100]),
-            //   timeLabelHeight: 32,
-            //   volumeHeightFactor: 0.2, // volume area is 20% of total height
-            // ),
+            style: ChartStyle(
+              priceGainColor: Color(0xFF089981),
+              priceLossColor: Color(0xFFF23645),
+              volumeColor: Colors.transparent,
+              trendLineStyles: [
+                Paint()
+                  ..strokeWidth = 1
+                  ..strokeCap = StrokeCap.round
+                  ..color = Colors.white,
+                Paint()
+                  ..strokeWidth = 1
+                  ..strokeCap = StrokeCap.round
+                  ..color = Colors.green,
+              ],
+              priceGridLineColor: Color(0xFF1C1C1C),
+              priceLabelStyle: TextStyle(color: Color(0xFFB8B8B8)),
+              timeLabelStyle: TextStyle(color: Color(0xFFB8B8B8)),
+              selectionHighlightColor: Colors.red.withOpacity(0.2),
+              overlayBackgroundColor: Colors.red[900]!.withOpacity(0.6),
+              overlayTextStyle: TextStyle(color: Colors.red[100]),
+              volumeHeightFactor: 0, // volume area is 20% of total height
+            ),
             /** Customize axis labels */
-            // timeLabel: (timestamp, visibleDataCount) => "📅",
-            // priceLabel: (price) => "${price.round()} 💎",
+            //timeLabel: (timestamp, visibleDataCount) => "📅",
+            //priceLabel: (price) => "${price.round()} 💎",
             /** Customize overlay (tap and hold to see it)
              ** Or return an empty object to disable overlay info. */
-            // overlayInfo: (candle) => {
-            //   "💎": "🤚    ",
-            //   "Hi": "${candle.high?.toStringAsFixed(2)}",
-            //   "Lo": "${candle.low?.toStringAsFixed(2)}",
-            // },
+            overlayInfo: (candle) => {
+              "💎": "🤚    ",
+              "Hi": "${candle.high?.toStringAsFixed(2)}",
+              "Lo": "${candle.low?.toStringAsFixed(2)}",
+            },
             /** Callbacks */
-            // onTap: (candle) => print("user tapped on $candle"),
-            // onCandleResize: (width) => print("each candle is $width wide"),
+            onTap: (candle) => print("user tapped on $candle"),
+            onCandleResize: (width) => print("each candle is $width wide"),
           ),
         ),
       ),
@@ -100,12 +101,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   _computeTrendLines() {
-    final ma7 = CandleData.computeMA(_data, 7);
-    final ma30 = CandleData.computeMA(_data, 30);
-    final ma90 = CandleData.computeMA(_data, 90);
+    final ma20 = CandleData.computeMA(_data, 20);
+    final ma66 = CandleData.computeMA(_data, 66);
 
     for (int i = 0; i < _data.length; i++) {
-      _data[i].trends = [ma7[i], ma30[i], ma90[i]];
+      _data[i].trends = [ma20[i], ma66[i]];
     }
   }
 
