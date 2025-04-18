@@ -80,9 +80,7 @@ class ChartPainter extends CustomPainter {
   }
 
   void _drawPriceGridAndLabels(canvas, PainterParams params) {
-    [0.0, 0.25, 0.5, 0.75, 1.0]
-        .map((v) => ((params.maxPrice - params.minPrice) * v) + params.minPrice)
-        .forEach((y) {
+    [0.0, 0.25, 0.5, 0.75, 1.0].map((v) => ((params.maxPrice - params.minPrice) * v) + params.minPrice).forEach((y) {
       canvas.drawLine(
         Offset(0, params.fitPrice(y)),
         Offset(params.chartWidth, params.fitPrice(y)),
@@ -118,9 +116,7 @@ class ChartPainter extends CustomPainter {
     final high = candle.high;
     final low = candle.low;
     if (open != null && close != null) {
-      final color = open > close
-          ? params.style.priceLossColor
-          : params.style.priceGainColor;
+      final color = open > close ? params.style.priceLossColor : params.style.priceGainColor;
       canvas.drawLine(
         Offset(x, params.fitPrice(open)),
         Offset(x, params.fitPrice(close)),
@@ -170,8 +166,7 @@ class ChartPainter extends CustomPainter {
         // In the front, draw an extra line connecting to out-of-window data
         if (pt != null && params.leadingTrends?.at(j) != null) {
           canvas.drawLine(
-            Offset(x - params.candleWidth,
-                params.fitPrice(params.leadingTrends!.at(j)!)),
+            Offset(x - params.candleWidth, params.fitPrice(params.leadingTrends!.at(j)!)),
             Offset(x, params.fitPrice(pt)),
             trendLinePaint,
           );
@@ -287,8 +282,7 @@ class ChartPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(ChartPainter oldDelegate) =>
-      params.shouldRepaint(oldDelegate.params);
+  bool shouldRepaint(ChartPainter oldDelegate) => params.shouldRepaint(oldDelegate.params);
 }
 
 extension ElementAtOrNull<E> on List<E> {
