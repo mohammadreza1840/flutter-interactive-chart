@@ -111,7 +111,7 @@ class ChartPainter extends CustomPainter {
     final candle = params.candles[i];
     final x = i * params.candleWidth;
     final thickWidth = max(params.candleWidth * 0.8, 0.8);
-    final thinWidth = max(params.candleWidth * 0.2, 0.2);
+    final thinWidth = 1.0; // max(params.candleWidth * 0.2, 0.2);
     // Draw price bar
     final open = candle.open;
     final close = candle.close;
